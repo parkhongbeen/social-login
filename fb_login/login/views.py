@@ -37,4 +37,12 @@ def login(request):
     # 돌려받은 응답을 JSON 형식으로 변환한다.
     result = response.json()
     # JSON 형식을 화면에 띄워준다.
-    return HttpResponse(result.items())
+
+    url_debug_token = 'https://graph.facebook.com/debug_token'
+    params_debug_token = {
+        "input_token": response.json()['access_token'],
+        "access_token": f'{app_id}|{app_secret}'
+    }
+    user_info = requests.get(url_debug_token, params=params_debug_token)
+
+    return HttpResponse(user_info.json().items())
