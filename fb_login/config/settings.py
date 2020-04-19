@@ -20,6 +20,7 @@ SECRET_KEY = 'st3b5dq(@8lvg@8s6x2y5f^o#8bs*3%c!4@95z#gpwh3*823u8'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# AUTH_USER_MODEL = 'members.User'
 
 
 # Application definition
@@ -32,7 +33,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'login.apps.LoginConfig'
+    'members.apps.MembersConfig',
+    'login.apps.LoginConfig',
+
+    'django_extensions',
+    'sslserver',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [

@@ -41,8 +41,21 @@ def login(request):
     url_debug_token = 'https://graph.facebook.com/debug_token'
     params_debug_token = {
         "input_token": response.json()['access_token'],
-        "access_token": f'{app_id}|{app_secret}'
+        "access_token": f'{app_id}|{app_secret}',
     }
-    user_info = requests.get(url_debug_token, params=params_debug_token)
+    url_user_info = 'https://graph.facebook.com/me'
+    user_info_fields = [
+        'id',  # 아이디
+        'first_name',  # 이름
+        'last_name',  # 성
+        'picture',  # 프로필 사진
+        'email',  # 이메일
+    ]
+
+    params_user_info = {
+        "fields": ','.join(user_info_fields),
+        "access_token": result['access_token']
+    }
+    user_info = requests.get(url_user_info, params=params_user_info)
 
     return HttpResponse(user_info.json().items())
